@@ -1,5 +1,8 @@
 extern crate getopts;
+use regex::{Error, Regex};
 use serde::Deserialize;
+
+use crate::judgement::{Filter, FilterKind};
 
 #[derive(Debug, Deserialize)]
 pub struct Record {
@@ -37,6 +40,14 @@ impl Record {
 
     pub fn set_read(&mut self, read: bool) {
         self.read = read;
+    }
+
+    pub fn is_match(&self, filter: &Filter) -> bool {
+        let regex = Regex::new(filter.regex).unwrap();
+        regex.is_match(match filter.kind {
+            FilterKind::Code => self.course_code.as_str(),
+            FilterKind::Name => self.course_name.as_str(),
+        })
     }
 }
 

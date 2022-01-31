@@ -41,5 +41,5 @@ fn main() {
 
     let mut records = read_csv::read_csv(input_path.as_str()).expect("Failed to read csv");
 
-    println!("{:?}", records);
+    judgement::judge(&mut records);
 }
