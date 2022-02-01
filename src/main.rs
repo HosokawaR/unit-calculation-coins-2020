@@ -4,6 +4,7 @@ use std::env;
 
 mod judgement;
 mod read_csv;
+mod read_toml;
 
 fn print_usage(program: &str, opts: Options) {
     let brief = format!("Usage: {} CSV_PATH [options]", program);
@@ -38,6 +39,8 @@ fn main() {
         print_usage(&program, opts);
         return;
     };
+
+    read_toml::read_toml("coins-2020.toml");
 
     let mut records = read_csv::read_csv(input_path.as_str()).expect("Failed to read csv");
 

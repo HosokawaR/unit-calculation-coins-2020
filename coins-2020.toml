@@ -1,0 +1,16 @@
+credit = 125.0
+
+["必須科目"]
+credit = 6.0
+
+["必須科目"."線形代数A"]
+credit = 2.0
+filter = {type = "name", regex = "^線形代数A$"}
+
+["必須科目"."線形代数B"]
+credit = 2.0
+filter = {type = "name", regex = "^線形代数B$"}
+
+["必須科目"."微分積分A"]
+credit = 6.0
+filter = {type = "name", regex = "^部分積分A$"}

@@ -1,26 +1,26 @@
 use super::read_csv::Record;
 
 #[derive(Debug)]
-pub enum FilterKind {
+pub enum FilterType {
     Code,
     Name,
 }
 
 #[derive(Debug)]
 pub struct Filter<'a> {
-    pub kind: FilterKind,
+    pub kind: FilterType,
     pub regex: &'a str,
 }
 
 #[derive(Debug)]
-struct Requirement<'a> {
-    label: &'a str,
-    credit: f64,
-    acquired_credit: f64,
-    ok: bool,
-    filter: Option<Filter<'a>>,
-    followed_by: &'a str,
-    children: Vec<&'a mut Requirement<'a>>,
+pub struct Requirement<'a> {
+    pub label: &'a str,
+    pub credit: f64,
+    pub acquired_credit: f64,
+    pub ok: bool,
+    pub filter: Option<Filter<'a>>,
+    pub followed_by: &'a str,
+    pub children: Vec<Requirement<'a>>,
 }
 
 fn judge_part(requirement: &mut Requirement, records: &mut Vec<Record>) -> f64 {
@@ -42,6 +42,7 @@ fn judge_part(requirement: &mut Requirement, records: &mut Vec<Record>) -> f64 {
             let sum_credit = requirement
                 .children
                 .iter_mut()
+                // TODO: 参照に変換する
                 .map(|child| judge_part(child, records))
                 .sum();
 
@@ -59,7 +60,7 @@ pub fn judge(records: &mut Vec<Record>) {
         acquired_credit: 0.0,
         ok: false,
         filter: Some(Filter {
-            kind: FilterKind::Name,
+            kind: FilterType::Name,
             regex: "^線形代数A$",
         }),
         followed_by: "",
@@ -71,7 +72,7 @@ pub fn judge(records: &mut Vec<Record>) {
         acquired_credit: 0.0,
         ok: false,
         filter: Some(Filter {
-            kind: FilterKind::Name,
+            kind: FilterType::Name,
             regex: "^線形代数B$",
         }),
         followed_by: "",
@@ -83,7 +84,7 @@ pub fn judge(records: &mut Vec<Record>) {
         acquired_credit: 0.0,
         ok: false,
         filter: Some(Filter {
-            kind: FilterKind::Name,
+            kind: FilterType::Name,
             regex: "^微分積分A$",
         }),
         followed_by: "",
@@ -96,7 +97,7 @@ pub fn judge(records: &mut Vec<Record>) {
         ok: false,
         filter: None,
         followed_by: "",
-        children: vec![&mut a, &mut b, &mut c],
+        children: vec![a, b, c],
     };
 
     judge_part(&mut d, records);
