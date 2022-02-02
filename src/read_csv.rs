@@ -1,5 +1,5 @@
 extern crate getopts;
-use regex::{Error, Regex, RegexBuilder};
+use regex::Regex;
 use serde::Deserialize;
 
 use crate::judgement::{Filter, FilterType};
@@ -48,6 +48,11 @@ impl Record {
             FilterType::Code => self.course_code.as_str(),
             FilterType::Name => self.course_name.as_str(),
         })
+    }
+
+    pub fn is_acquired(&self) -> bool {
+        let regex = Regex::new(r"^A\+|[A-C]|P$").unwrap();
+        regex.is_match(self.overall_grade.as_str())
     }
 }
 

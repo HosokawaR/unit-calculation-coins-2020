@@ -26,9 +26,9 @@ pub struct Requirement<'a> {
 fn judge_part(requirement: &mut Requirement, records: &mut Vec<Record>) -> f64 {
     match &requirement.filter {
         Some(filter) => {
-            let matched_records = records
-                .iter_mut()
-                .filter(|record| !record.is_read() && record.is_match(&filter));
+            let matched_records = records.iter_mut().filter(|record| {
+                !record.is_read() && record.is_match(&filter) && record.is_acquired()
+            });
 
             for record in matched_records {
                 requirement.acquired_credit += record.credit;
