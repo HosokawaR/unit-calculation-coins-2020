@@ -1,5 +1,5 @@
 extern crate getopts;
-use regex::{Error, Regex};
+use regex::{Error, Regex, RegexBuilder};
 use serde::Deserialize;
 
 use crate::judgement::{Filter, FilterType};
@@ -43,7 +43,7 @@ impl Record {
     }
 
     pub fn is_match(&self, filter: &Filter) -> bool {
-        let regex = Regex::new(filter.regex).unwrap();
+        let regex = Regex::new(filter.regex.as_str()).unwrap();
         regex.is_match(match filter.kind {
             FilterType::Code => self.course_code.as_str(),
             FilterType::Name => self.course_name.as_str(),

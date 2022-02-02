@@ -7,10 +7,10 @@ credit = 6.0
 credit = 2.0
 filter = {type = "name", regex = "^線形代数A$"}
 
-["必須科目"."線形代数B"]
+["必須科目"."情報数学A"]
 credit = 2.0
-filter = {type = "name", regex = "^線形代数B$"}
+filter = {type = "name", regex = "^情報数学A$"}
 
-["必須科目"."微分積分A"]
+["必須科目"."データサイエンス"]
 credit = 6.0
-filter = {type = "name", regex = "^部分積分A$"}
+filter = {type = "name", regex = "データサイエンス"}

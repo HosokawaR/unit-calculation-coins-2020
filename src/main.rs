@@ -40,9 +40,11 @@ fn main() {
         return;
     };
 
-    read_toml::read_toml("coins-2020.toml");
+    let mut requirements = read_toml::read_toml("coins-2020.toml");
 
     let mut records = read_csv::read_csv(input_path.as_str()).expect("Failed to read csv");
 
-    judgement::judge(&mut records);
+    judgement::judge(&mut requirements, &mut records);
+
+    println!("{:#?}", requirements);
 }
