@@ -2,6 +2,7 @@ extern crate getopts;
 use getopts::Options;
 use std::env;
 
+mod display;
 mod judgement;
 mod read_csv;
 mod read_toml;
@@ -17,7 +18,6 @@ fn main() {
 
     let mut opts = Options::new();
     opts.optflag("h", "help", "HELP HELP HELP");
-    opts.optflag("o", "output", "output path");
 
     let matches = match opts.parse(&args[1..]) {
         Ok(m) => m,
@@ -30,8 +30,6 @@ fn main() {
         print_usage(&program, opts);
         return;
     }
-
-    let output_path = matches.opt_str("o");
 
     let input_path = if !matches.free.is_empty() {
         matches.free[0].clone()
@@ -46,5 +44,5 @@ fn main() {
 
     judgement::judge(&mut requirements, &mut records);
 
-    println!("{:#?}", requirements);
+    display::display_result(&requirements, "", "");
 }

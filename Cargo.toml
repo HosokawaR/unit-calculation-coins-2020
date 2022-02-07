@@ -4,6 +4,7 @@ name = "unit-calculation"
 version = "0.1.0"
 
 [dependencies]
+colored = "2.0.0"
 csv = "1.1"
 getopts = "0.2"
 regex = "0.1"
