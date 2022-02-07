@@ -1,16 +1,154 @@
 credit = 125.0
 
-["必須科目"]
-credit = 6.0
+["基礎科目"]
+credit = 19.0
 
-["必須科目"."線形代数A"]
+["基礎科目"."共通科目"]
+credit = 13.0
+
+["基礎科目"."共通科目"."必修科目"]
+credit = 12.0
+
+["基礎科目"."共通科目"."必修科目"."総合科目（フレッシュマン・セミナー、学問への誘い）"]
+credit = 2.0
+filter = {type = "name", regex = "^フレッシュマン・セミナー|学問への誘い"}
+
+["基礎科目"."共通科目"."必修科目"."体育"]
+credit = 2.0
+filter = {type = "code", regex = "^2[1-7]"}
+
+["基礎科目"."共通科目"."必修科目"."外国語（英語）"]
+credit = 4.0
+filter = {type = "code", regex = "^31"}
+
+["基礎科目"."共通科目"."必修科目"."情報"]
+credit = 4.0
+filter = {type = "name", regex = "^(情報リテラシー（(講義|演習)）|データサイエンス)"}
+
+["基礎科目"."共通科目"."選択科目"]
+credit = 5.0
+
+["基礎科目"."共通科目"."選択科目"."総合科目（学士基盤科目）"]
+credit = 1.0
+# 「学問への誘い」「学士基盤科目」を科目コードでは判別できないが、「学問への誘い」は別項目で検出される
+filter = {type = "code", regex = "^12"}
+
+["基礎科目"."共通科目"."選択科目"."体育、外国語、国語、芸術"]
+credit = 0.0
+filter = {type = "code", regex = "^(28|3[2-9]|5|4)"}
+
+["専門基礎科目"]
+credit = 50.0
+
+["専門基礎科目"."必修科目"]
+credit = 26.0
+
+["専門基礎科目"."必修科目"."線形代数A"]
 credit = 2.0
 filter = {type = "name", regex = "^線形代数A$"}
 
-["必須科目"."情報数学A"]
+["専門基礎科目"."必修科目"."線形代数B"]
+credit = 2.0
+filter = {type = "name", regex = "^線形代数B$"}
+
+["専門基礎科目"."必修科目"."微分積分A"]
+credit = 2.0
+filter = {type = "name", regex = "^微分積分A$"}
+
+["専門基礎科目"."必修科目"."微分積分B"]
+credit = 2.0
+filter = {type = "name", regex = "^微分積分B$"}
+
+["専門基礎科目"."必修科目"."情報数学A"]
 credit = 2.0
 filter = {type = "name", regex = "^情報数学A$"}
 
-["必須科目"."データサイエンス"]
-credit = 6.0
-filter = {type = "name", regex = "データサイエンス"}
+["専門基礎科目"."必修科目"."専門英語基礎"]
+credit = 1.0
+filter = {type = "name", regex = "^専門英語基礎$"}
+
+["専門基礎科目"."必修科目"."プログラミング入門"]
+credit = 3.0
+filter = {type = "name", regex = "^プログラミング入門$"}
+
+["専門基礎科目"."必修科目"."コンピュータとプログラミング"]
+credit = 3.0
+filter = {type = "name", regex = "^コンピュータとプログラミング$"}
+
+["専門基礎科目"."必修科目"."データ構造とアルゴリズム"]
+credit = 3.0
+filter = {type = "name", regex = "^データ構造とアルゴリズム$"}
+
+["専門基礎科目"."必修科目"."データ構造とアルゴリズム実験"]
+credit = 2.0
+filter = {type = "name", regex = "^データ構造とアルゴリズム実験$"}
+
+["専門基礎科目"."必修科目"."論理回路"]
+credit = 2.0
+filter = {type = "name", regex = "^論理回路$"}
+
+["専門基礎科目"."必修科目"."論理回路演習"]
+credit = 2.0
+filter = {type = "name", regex = "^論理回路演習$"}
+
+["専門基礎科目"."選択科目"]
+credit = 24.0
+
+["専門基礎科目"."選択科目"."確率論、統計学、数値計算法、論理と形式化、電磁気学、論理システム、論理システム演習"]
+credit = 10.0
+filter = {type = "name", regex = "^(確率論|統計学|数値計算法|論理と形式化|電磁気学|論理システム|論理システム演習)$"}
+
+["専門基礎科目"."選択科目"."Computer Science in English A/B"]
+credit = 2.0
+filter = {type = "name", regex = "Computer Science in English (A|B)"}
+
+["専門基礎科目"."選択科目"."科目番号がGB1で始まる科目（ただし、情報科学特別演習、情報特別演習Ⅰ/Ⅱは除く）"]
+credit = 0.0
+# TODO
+filter = {type = "code", regex = "^GB1"}
+
+["専門基礎科目"."選択科目"."科目番号がGA1で始まる科目"]
+credit = 8.0
+filter = {type = "code", regex = "^GA1"}
+
+["専門科目"]
+credit = 52.0
+
+["専門科目"."必修科目"]
+credit = 16.0
+
+["専門科目"."必修科目"."ソフトウェアサイエンス実験"]
+credit = 3.0
+filter = {type = "name", regex = "^ソフトウェアサイエンス実験$"}
+
+["専門科目"."必修科目"."ソフトウェアサイエンス実験B"]
+credit = 3.0
+filter = {type = "name", regex = "^ソフトウェアサイエンス実験B$"}
+
+["専門科目"."必修科目"."卒業研究A"]
+credit = 3.0
+filter = {type = "name", regex = "^卒業研究A$"}
+
+["専門科目"."必修科目"."卒業研究B"]
+credit = 3.0
+filter = {type = "name", regex = "^卒業研究B$"}
+
+["専門科目"."必修科目"."専門語学A"]
+credit = 2.0
+filter = {type = "name", regex = "^専門英語B$"}
+
+["専門科目"."必修科目"."専門語学B"]
+credit = 2.0
+filter = {type = "name", regex = "^専門英語B$"}
+
+["専門科目"."選択科目"]
+credit = 18.0
+
+["専門科目"."選択科目"."科目番号がGB20、GB30、GB40で始まる科目"]
+credit = 18.0
+filter = {type = "code", regex = "^GB[2-4]0"}
+
+["専門科目"."選択科目"."科目番号がGB2、GB3、GB4、GA4で始まる科目 or 情報科学特別演習、情報特別演習Ⅰ/Ⅱ"]
+credit = 0.0
+# TODO
+filter = {type = "code", regex = "^(GB[2-4]|GA4)"}
