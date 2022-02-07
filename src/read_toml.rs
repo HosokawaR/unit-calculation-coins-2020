@@ -10,14 +10,23 @@ use std::fs;
 fn get_filter(requirements: Table) -> Option<Filter> {
     match requirements.get("filter") {
         Some(filter) => filter.as_table().map(|filter| {
-            let filter_kind = filter.get("type").unwrap().as_str().unwrap();
+            let filter_kind = filter
+                .get("type")
+                .expect("Failed to get filter type.")
+                .as_str()
+                .unwrap();
             Filter {
                 kind: match filter_kind {
                     "name" => FilterType::Name,
                     "code" => FilterType::Code,
                     _ => panic!("{} is unknown filter type", filter_kind),
                 },
-                regex: filter.get("regex").unwrap().as_str().unwrap().to_string(),
+                regex: filter
+                    .get("regex")
+                    .expect("Failed to get regex.")
+                    .as_str()
+                    .unwrap()
+                    .to_string(),
             }
         }),
         None => None,
@@ -38,7 +47,12 @@ fn build_requiremnts<'a>(requirements: Table, label: String) -> Result<Requireme
         })
         .collect();
 
-    let credit = requirements.get("credit").unwrap().as_float().unwrap();
+    let credit = requirements
+        .get("credit")
+        .expect(format!("Failed to get credit at \n{:#?}.", requirements).as_str())
+        .as_float()
+        .unwrap();
+
     let filter = get_filter(requirements);
 
     Ok(Requirement {
