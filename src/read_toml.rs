@@ -53,6 +53,11 @@ fn build_requiremnts<'a>(requirements: Table, label: String) -> Result<Requireme
         .as_float()
         .unwrap();
 
+    let order = match requirements.get("order") {
+        Some(order) => Some(order.as_integer().unwrap()),
+        None => None,
+    };
+
     let filter = get_filter(requirements);
 
     Ok(Requirement {
@@ -63,6 +68,7 @@ fn build_requiremnts<'a>(requirements: Table, label: String) -> Result<Requireme
         acquired_credit: 0.0,
         ok: false,
         followed_by: "",
+        order,
     })
 }
 

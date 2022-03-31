@@ -1,4 +1,5 @@
 use super::read_csv::Record;
+use itertools::Itertools;
 
 #[derive(Debug)]
 pub enum FilterType {
@@ -19,6 +20,7 @@ pub struct Requirement<'a> {
     pub acquired_credit: f64,
     pub ok: bool,
     pub filter: Option<Filter>,
+    pub order: Option<i64>,
     pub followed_by: &'a str,
     pub children: Vec<Requirement<'a>>,
 }
@@ -41,7 +43,10 @@ fn judge_part(requirement: &mut Requirement, records: &mut Vec<Record>) -> f64 {
         None => {
             let sum_credit = requirement
                 .children
-                .iter_mut()
+                .into_iter()
+                .sorted_by(|a, b| a.order.cmp(&b.order))
+                // .iter_mut()
+                .into_iter()
                 // TODO: 参照に変換する
                 .map(|child| judge_part(child, records))
                 .sum();
