@@ -41,12 +41,14 @@ fn judge_part(requirement: &mut Requirement, records: &mut Vec<Record>) -> f64 {
             requirement.acquired_credit
         }
         None => {
-            let sum_credit = requirement
-                .children
-                .into_iter()
-                .sorted_by(|a, b| a.order.cmp(&b.order))
-                // .iter_mut()
-                .into_iter()
+            let children = &mut requirement.children;
+            children.sort_by(|a, b| a.order.cmp(&b.order));
+
+            let sum_credit = children
+                // .into_iter()
+                // .sorted_by(|a, b| a.order.cmp(&b.order))
+                .iter_mut()
+                // .into_iter()
                 // TODO: 参照に変換する
                 .map(|child| judge_part(child, records))
                 .sum();

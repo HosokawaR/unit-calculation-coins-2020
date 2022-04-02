@@ -37,7 +37,9 @@ fn build_requiremnts<'a>(requirements: Table, label: String) -> Result<Requireme
     let children = requirements
         .clone()
         .into_iter()
-        .filter(|requirement| requirement.0 != "credit" && requirement.0 != "filter")
+        .filter(|requirement| {
+            requirement.0 != "credit" && requirement.0 != "filter" && requirement.0 != "order"
+        })
         .map(|requirement| {
             let label = requirement.0;
             let _label = label.clone();
