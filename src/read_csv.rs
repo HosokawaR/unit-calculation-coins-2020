@@ -15,7 +15,7 @@ pub struct Record {
     #[serde(rename = "科目名")]
     pub course_name: String,
     // csv の単位数カラムに余分な空白があり serde の標準機能では f64 に変換できないため独自の変換関数を用意
-    #[serde(rename = "単位数", deserialize_with = "deserialize_credit")]
+    #[serde(rename = "単位数 ", deserialize_with = "deserialize_credit")]
     pub credit: f64,
     #[serde(rename = "春学期")]
     pub spring: String,

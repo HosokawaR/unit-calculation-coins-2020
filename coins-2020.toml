@@ -6,6 +6,7 @@ order = 3
 
 ["基礎科目"."共通科目"]
 credit = 13.0
+order = 1
 
 ["基礎科目"."共通科目"."必修科目"]
 credit = 12.0
@@ -42,7 +43,18 @@ filter = {type = "code", regex = "^12"}
 credit = 0.0
 filter = {type = "code", regex = "^(28|3[2-9]|5|4)"}
 
-# TODO: 基礎科目.関連科目を実装
+["基礎科目"."関連科目"]
+credit = 6.0
+order = 2
+
+["基礎科目"."関連科目"."「E,F,G,Hで始まる科目、共通科目、教職に関する科目」以外の科目"]
+credit = 6.0
+# 現状の記法では表現しきれない
+filter = {type = "name", regex = ""}
+
+["基礎科目"."関連科目"."E,F,G,Hで始まる科目"]
+credit = 0.0
+filter = {type = "code", regex = "^[EFGH]"}
 
 ["専門基礎科目"]
 credit = 50.0
