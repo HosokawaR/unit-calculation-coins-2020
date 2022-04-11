@@ -12,10 +12,12 @@ pub fn display_result(requirements: &Requirement, prefix: &str, children_prefix:
         false => println!("{}", result.red()),
     }
 
-    if prefix.len() >= 4 {
-        println!("{}    {}", &prefix.split_at(prefix.len() - 4).0, "test");
-    } else {
-        println!("{}    {}", &prefix, "test");
+    if requirements.filter.is_some() {
+        println!(
+            "{}{}",
+            pat,
+            requirements.filter.as_ref().unwrap().regex.yellow()
+        );
     }
 
     let mut iter = requirements.children.iter().peekable();
@@ -29,18 +31,14 @@ pub fn display_result(requirements: &Requirement, prefix: &str, children_prefix:
                     child,
                     &child_prefix,
                     &child_children_prefix,
-                    &children_prefix,
+                    &child_children_prefix,
                 );
             }
             false => {
                 let child_prefix = format!("{}{}", children_prefix, "└── ");
                 let child_children_prefix = format!("{}{}", children_prefix, "    ");
-                display_result(
-                    child,
-                    &child_prefix,
-                    &child_children_prefix,
-                    &children_prefix,
-                );
+                let pat = format!("{}{}", children_prefix, "    ");
+                display_result(child, &child_prefix, &child_children_prefix, &pat);
             }
         }
     }
