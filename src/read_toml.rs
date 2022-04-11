@@ -38,7 +38,10 @@ fn build_requiremnts<'a>(requirements: Table, label: String) -> Result<Requireme
         .clone()
         .into_iter()
         .filter(|requirement| {
-            requirement.0 != "credit" && requirement.0 != "filter" && requirement.0 != "order"
+            requirement.0 != "credit"
+                && requirement.0 != "filter"
+                && requirement.0 != "order"
+                && requirement.0 != "max"
         })
         .map(|requirement| {
             let label = requirement.0;
@@ -55,6 +58,11 @@ fn build_requiremnts<'a>(requirements: Table, label: String) -> Result<Requireme
         .as_float()
         .unwrap();
 
+    let limit_credit = match requirements.get("max") {
+        Some(order) => order.as_float().unwrap(),
+        None => credit,
+    };
+
     let order = match requirements.get("order") {
         Some(order) => Some(order.as_integer().unwrap()),
         None => None,
@@ -65,6 +73,7 @@ fn build_requiremnts<'a>(requirements: Table, label: String) -> Result<Requireme
     Ok(Requirement {
         label,
         credit,
+        limit_credit,
         filter,
         children,
         acquired_credit: 0.0,

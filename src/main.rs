@@ -18,6 +18,7 @@ fn main() {
 
     let mut opts = Options::new();
     opts.optflag("h", "help", "HELP HELP HELP");
+    opts.optflag("p", "prospect", "include course you are taking now.");
 
     let matches = match opts.parse(&args[1..]) {
         Ok(m) => m,
@@ -42,7 +43,7 @@ fn main() {
 
     let mut records = read_csv::read_csv(input_path.as_str()).expect("Failed to read csv");
 
-    judgement::judge(&mut requirements, &mut records);
+    judgement::judge(&mut requirements, &mut records, &matches.opt_present("p"));
 
     display::display_result(&requirements, "", "");
 }

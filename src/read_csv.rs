@@ -1,5 +1,6 @@
 extern crate getopts;
-use regex::Regex;
+// use regex::Regex;
+use fancy_regex::Regex;
 use serde::Deserialize;
 
 use crate::judgement::{Filter, FilterType};
@@ -12,10 +13,10 @@ pub struct Record {
     pub student_name: String,
     #[serde(rename = "科目番号")]
     pub course_code: String,
-    #[serde(rename = "科目名")]
+    #[serde(rename = "科目名 ")]
     pub course_name: String,
     // csv の単位数カラムに余分な空白があり serde の標準機能では f64 に変換できないため独自の変換関数を用意
-    #[serde(rename = "単位数 ", deserialize_with = "deserialize_credit")]
+    #[serde(rename = "単位数", deserialize_with = "deserialize_credit")]
     pub credit: f64,
     #[serde(rename = "春学期")]
     pub spring: String,
@@ -44,15 +45,22 @@ impl Record {
 
     pub fn is_match(&self, filter: &Filter) -> bool {
         let regex = Regex::new(filter.regex.as_str()).unwrap();
-        regex.is_match(match filter.kind {
-            FilterType::Code => self.course_code.as_str(),
-            FilterType::Name => self.course_name.as_str(),
-        })
+        regex
+            .is_match(match filter.kind {
+                FilterType::Code => self.course_code.as_str(),
+                FilterType::Name => self.course_name.as_str(),
+            })
+            .unwrap()
     }
 
-    pub fn is_acquired(&self) -> bool {
-        let regex = Regex::new(r"^A\+|[A-C]|P$").unwrap();
-        regex.is_match(self.overall_grade.as_str())
+    pub fn is_acquired(&self, prospect: &bool) -> bool {
+        let regex = Regex::new(if *prospect {
+            r"^A\+|[A-C]|P|履修中$"
+        } else {
+            r"^A\+|[A-C]|P$"
+        })
+        .unwrap();
+        regex.is_match(self.overall_grade.as_str()).unwrap()
     }
 }
 

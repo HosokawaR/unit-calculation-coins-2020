@@ -1,5 +1,4 @@
 use super::read_csv::Record;
-use itertools::Itertools;
 
 #[derive(Debug)]
 pub enum FilterType {
@@ -18,6 +17,7 @@ pub struct Requirement<'a> {
     pub label: String,
     pub credit: f64,
     pub acquired_credit: f64,
+    pub limit_credit: f64,
     pub ok: bool,
     pub filter: Option<Filter>,
     pub order: Option<i64>,
@@ -25,11 +25,11 @@ pub struct Requirement<'a> {
     pub children: Vec<Requirement<'a>>,
 }
 
-fn judge_part(requirement: &mut Requirement, records: &mut Vec<Record>) -> f64 {
+fn judge_part(requirement: &mut Requirement, records: &mut Vec<Record>, prospect: &bool) -> f64 {
     match &requirement.filter {
         Some(filter) => {
             let matched_records = records.iter_mut().filter(|record| {
-                !record.is_read() && record.is_match(&filter) && record.is_acquired()
+                !record.is_read() && record.is_match(&filter) && record.is_acquired(prospect)
             });
 
             for record in matched_records {
@@ -50,16 +50,17 @@ fn judge_part(requirement: &mut Requirement, records: &mut Vec<Record>) -> f64 {
                 .iter_mut()
                 // .into_iter()
                 // TODO: 参照に変換する
-                .map(|child| judge_part(child, records))
+                .map(|child| judge_part(child, records, prospect))
                 .sum();
 
-            requirement.acquired_credit = sum_credit;
+            requirement.acquired_credit = requirement.limit_credit.min(sum_credit);
+
             requirement.ok = requirement.acquired_credit >= requirement.credit;
             sum_credit
         }
     }
 }
 
-pub fn judge(requirement: &mut Requirement, records: &mut Vec<Record>) {
-    judge_part(requirement, records);
+pub fn judge(requirement: &mut Requirement, records: &mut Vec<Record>, prospect: &bool) {
+    judge_part(requirement, records, prospect);
 }
