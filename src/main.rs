@@ -45,5 +45,5 @@ fn main() {
 
     judgement::judge(&mut requirements, &mut records, &matches.opt_present("p"));
 
-    display::display_result(&requirements, "", "");
+    display::display_result(&requirements, "", "", "    ");
 }
