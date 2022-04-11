@@ -111,7 +111,7 @@ filter = {type = "name", regex = "^論理回路$"}
 
 ["専門基礎科目"."必修科目"."論理回路演習"]
 credit = 2.0
-filter = {type = "name", regex = "^論理回路演習$"}
+filter = {type = "name", regex = "^論理回路(演習|実験)$"}
 
 ["専門基礎科目"."選択科目"]
 credit = 24.0
