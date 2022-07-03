@@ -1,7 +1,13 @@
 use super::judgement::Requirement;
 use colored::Colorize;
 
-pub fn display_result(requirements: &Requirement, prefix: &str, children_prefix: &str, pat: &str) {
+pub fn display_result(
+    requirements: &Requirement,
+    prefix: &str,
+    children_prefix: &str,
+    pat: &str,
+    show_regex: &bool,
+) {
     print!("{}{} ", prefix, requirements.label);
 
     let result =
@@ -12,7 +18,7 @@ pub fn display_result(requirements: &Requirement, prefix: &str, children_prefix:
         false => println!("{}", result.red()),
     }
 
-    if requirements.filter.is_some() {
+    if *show_regex && requirements.filter.is_some() {
         println!(
             "{}{}",
             pat,
@@ -32,13 +38,20 @@ pub fn display_result(requirements: &Requirement, prefix: &str, children_prefix:
                     &child_prefix,
                     &child_children_prefix,
                     &child_children_prefix,
+                    show_regex,
                 );
             }
             false => {
                 let child_prefix = format!("{}{}", children_prefix, "└── ");
                 let child_children_prefix = format!("{}{}", children_prefix, "    ");
                 let pat = format!("{}{}", children_prefix, "    ");
-                display_result(child, &child_prefix, &child_children_prefix, &pat);
+                display_result(
+                    child,
+                    &child_prefix,
+                    &child_children_prefix,
+                    &pat,
+                    show_regex,
+                );
             }
         }
     }
