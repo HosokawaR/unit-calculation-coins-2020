@@ -50,7 +50,7 @@ order = 2
 
 ["基礎科目"."関連科目"."「E,F,G,Hで始まる科目、共通科目、教職に関する科目」以外の科目"]
 credit = 6.0
-filter = {type = "code", regex = "^(?![EFG9]).*$"}
+filter = {type = "code", regex = "^(?![1-9EFGH]).*$"}
 
 ["基礎科目"."関連科目"."E,F,GC,GE,Hで始まる科目"]
 credit = 0.0
